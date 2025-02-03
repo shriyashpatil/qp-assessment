@@ -1,12 +1,14 @@
 package com.qp.grocery_booking.service;
 
+import com.qp.grocery_booking.dto.ResponseData;
+
 public interface GroceryService {
 
-    public void addGroceryItem(String name,Double price,Integer quantity);
+    public ResponseData addGroceryItem(String name, Double price, Integer quantity);
 
-    public void getGroceryItems();
+    public ResponseData getGroceryItems();
 
-    public void removeGroceryItem();
+    public ResponseData removeGroceryItem(Long id);
 
     public void updateGroceryItem();
 }

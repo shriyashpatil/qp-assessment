@@ -1,6 +1,7 @@
 package com.qp.grocery_booking.controller;
 
 import com.qp.grocery_booking.dto.GroceryItem;
+import com.qp.grocery_booking.dto.ResponseData;
 import com.qp.grocery_booking.service.GroceryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +16,18 @@ public class GroceryController {
 
 
     @PostMapping
-    public void addGroceryItem(@RequestBody GroceryItem groceryItem){
-        groceryService.addGroceryItem(groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
+    public ResponseData addGroceryItem(@RequestBody GroceryItem groceryItem){
+        return groceryService.addGroceryItem(groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
     }
 
     @GetMapping
-    public void getGroceryItems(){
-        groceryService.getGroceryItems();
+    public ResponseData getGroceryItems(){
+        return groceryService.getGroceryItems();
     }
 
     @DeleteMapping("/{id}")
-    public void removeGroceryItem(@PathVariable Long id){
-        groceryService.removeGroceryItem();
+    public ResponseData removeGroceryItem(@PathVariable Long id){
+        return groceryService.removeGroceryItem(id);
     }
 
 
