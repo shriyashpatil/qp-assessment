@@ -8,7 +8,9 @@ public interface GroceryService {
 
     public ResponseData getGroceryItems();
 
+    public ResponseData getGroceryItemsWithQuantity();
+
     public ResponseData removeGroceryItem(Long id);
 
-    public void updateGroceryItem();
+    public ResponseData updateGroceryItem(Long itemId,String name, Double price, Integer quantity);
 }

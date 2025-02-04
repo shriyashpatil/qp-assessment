@@ -16,7 +16,10 @@ public class UserGroceryTnxModel extends BaseModel{
     @ManyToOne
     private GroceryModel grocery;
 
-    private int amount;
+    private Double amount;
+
+    @ManyToOne
+    private OrderModel order;
 
 
 }

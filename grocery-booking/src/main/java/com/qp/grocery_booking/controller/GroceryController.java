@@ -3,7 +3,9 @@ package com.qp.grocery_booking.controller;
 import com.qp.grocery_booking.dto.GroceryItem;
 import com.qp.grocery_booking.dto.ResponseData;
 import com.qp.grocery_booking.service.GroceryServiceImpl;
+import com.qp.grocery_booking.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,6 +19,14 @@ public class GroceryController {
 
     @PostMapping
     public ResponseData addGroceryItem(@RequestBody GroceryItem groceryItem){
+        // Validate input
+        String validationError = Validator.validateGroceryItem(groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
+        if (validationError != null) {
+            return ResponseData.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message(validationError)
+                    .build();
+        }
         return groceryService.addGroceryItem(groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
     }
 
@@ -28,6 +38,20 @@ public class GroceryController {
     @DeleteMapping("/{id}")
     public ResponseData removeGroceryItem(@PathVariable Long id){
         return groceryService.removeGroceryItem(id);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseData updateGroceryItem(@PathVariable Long id, @RequestBody GroceryItem groceryItem){
+        // Validate input
+        String validationError = Validator.validateGroceryItem(groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
+        if (validationError != null) {
+            return ResponseData.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message(validationError)
+                    .build();
+        }
+        return groceryService.updateGroceryItem(id,groceryItem.getName(),groceryItem.getPrice(),groceryItem.getQuantity());
     }
 
 

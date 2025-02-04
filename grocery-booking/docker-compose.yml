@@ -1,0 +1,38 @@
+
+services:
+  # Spring Boot application service
+  app:
+    container_name: qp-grocery-app
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/grocery_booking
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - db
+    networks:
+      - grocery_network
+    restart: unless-stopped
+
+  # PostgreSQL database service
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=grocery_booking  # Database name
+      - POSTGRES_USER=postgres  # Username
+      - POSTGRES_PASSWORD=root  # Password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persists data
+    networks:
+      - grocery_network
+    restart: unless-stopped
+
+networks:
+  grocery_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
