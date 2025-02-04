@@ -10,6 +10,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/grocery_booking
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
     depends_on:
       - db
     networks:
@@ -23,6 +24,8 @@ services:
       - POSTGRES_DB=grocery_booking  # Database name
       - POSTGRES_USER=postgres  # Username
       - POSTGRES_PASSWORD=root  # Password
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persists data
     networks:
