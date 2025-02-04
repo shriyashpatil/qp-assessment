@@ -9,6 +9,9 @@ import com.qp.grocery_booking.model.GroceryModel;
 import com.qp.grocery_booking.repository.GroceryRepository;
 import com.qp.grocery_booking.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +43,8 @@ public class GroceryServiceImpl implements GroceryService {
     }
 
     @Override
-    public ResponseData getGroceryItems() {
-        List<GroceryModel>  groceryItems =   groceryRepository.findAll();
+    public ResponseData getGroceryItems(int pageNum,int pageSize) {
+        List<GroceryModel>  groceryItems =   groceryRepository.getGroceries(pageSize,pageNum*pageSize);
         return ResponseData.builder()
                 .status(HttpStatus.OK)
                 .data(groceryItems)
@@ -51,9 +54,10 @@ public class GroceryServiceImpl implements GroceryService {
     }
 
     @Override
-    public ResponseData getGroceryItemsWithQuantity() {
+    public ResponseData getGroceryItemsWithQuantity(int pageNum, int pageSize) {
         try {
-            Optional<List<GroceryModel>> groceryItemsOptional = groceryRepository.getGroceryWithQuantity();
+            System.out.println(pageNum+""+pageSize);
+            Optional<List<GroceryModel>> groceryItemsOptional = Optional.of(groceryRepository.getGroceryWithQuantity(pageSize,pageNum*pageSize));
 
             if (groceryItemsOptional.isEmpty() || groceryItemsOptional.get().isEmpty()) {
                 throw new GroceryOutOfStockException("No grocery items available in stock.");

@@ -19,7 +19,7 @@ public class GroceryUserTnxController {
     }
 
     @GetMapping("/get-groceries")
-    public ResponseData getGroceries(){
-        return userGroceryTnxService.getGroceries();
+    public ResponseData getGroceries(@RequestParam(defaultValue = "0") int pageNum, @RequestParam(defaultValue = "10") int pageSize){
+        return userGroceryTnxService.getGroceries(pageNum,pageSize);
     }
 }

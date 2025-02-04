@@ -8,6 +8,6 @@ public interface UserGroceryTnxService {
 
     public ResponseData bookGroceries(Long userId,List<Long> ids);
 
-    public ResponseData getGroceries();
+    public ResponseData getGroceries(int pageNum,int pageSize);
 
 }

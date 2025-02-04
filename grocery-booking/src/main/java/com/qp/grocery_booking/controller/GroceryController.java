@@ -31,8 +31,8 @@ public class GroceryController {
     }
 
     @GetMapping
-    public ResponseData getGroceryItems(){
-        return groceryService.getGroceryItems();
+    public ResponseData getGroceryItems(@RequestParam(defaultValue = "0") int pageNum, @RequestParam(defaultValue = "10") int pageSize){
+        return groceryService.getGroceryItems(pageNum,pageSize);
     }
 
     @DeleteMapping("/{id}")

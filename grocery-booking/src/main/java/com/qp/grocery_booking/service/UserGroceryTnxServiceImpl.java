@@ -115,7 +115,7 @@ public class UserGroceryTnxServiceImpl implements UserGroceryTnxService {
 
 
     @Override
-    public ResponseData getGroceries() {
-        return groceryService.getGroceryItemsWithQuantity();
+    public ResponseData getGroceries(int pageNum,int pageSize) {
+        return groceryService.getGroceryItemsWithQuantity(pageNum,pageSize);
     }
 }
